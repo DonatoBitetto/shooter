@@ -31,14 +31,19 @@ export default class Game extends Phaser.Scene{
 
 
     preload(){
-        this.load.image('player','assets/player.png');
-        this.load.image('bullet','assets/player.png');
+        this.load.image('player','assets/survivor1_gun.png');
         this.load.image('enemy','assets/enemy.png');
+        this.load.image('bullet','assets/player.png');
+        this.load.image('tiles','assets/tilesheet_complete.png');
+        this.load.tilemapTiledJSON('tilemap','assets/map.json');
     }
 
     create(){
-        this.player = new Player(this, 512, 384, 'player');
+        let map = this.make.tilemap({key: 'tilemap'});
+        let tileset = map.addTilesetImage('tiles','tiles');
+        map.createLayer('Background',tileset,0,0)
         
+        this.player = new Player(this, 512, 384, 'player');
         this.time.addEvent({
             callback: this.addEnemy,
             callbackScope: this,
@@ -49,7 +54,8 @@ export default class Game extends Phaser.Scene{
         this.scoreText = this.add.text(10,10, `Score: ${this.score}`, {color: '#ffffff',fontSize: 24});
         this.healthText = this.add.text(0, 0, `Health: ${this.player.health}`, {color: '#ffffff',fontSize: 24});
         this.healthText.setOrigin(0.5,1);
-        this.healthText.setPosition(this.game.config.width/2,this.game.config.height)
+        this.healthText.setPosition(this.game.config.width/2,this.game.config.height);
+        
     }
 
     update(){
@@ -77,6 +83,8 @@ export default class Game extends Phaser.Scene{
         
         this.enemies.children.iterate(enemy=>{
             this.physics.accelerateToObject(enemy,this.player);
-        })
+        });
+
+        
     }
 }
