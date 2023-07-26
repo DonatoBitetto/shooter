@@ -12,7 +12,7 @@ export default class Gun extends Weapon{
 
     shoot(pointer){
         let mainBullet = new Bullet(this.scene,this.scene.player.x,this.scene.player.y,'player');
-        this.scene.physics.moveTo(mainBullet, pointer.x,pointer.y, 200);
+        this.scene.physics.moveTo(mainBullet, pointer.worldX,pointer.worldY, 200);
         mainBullet.scale = 0.3;
         setTimeout(() => mainBullet.destroy(), this.range);
     }

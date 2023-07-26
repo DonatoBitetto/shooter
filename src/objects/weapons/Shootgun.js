@@ -17,7 +17,7 @@ export default class Shootgun extends Weapon{
         let degree = (Math.PI / 180) * 15;
         let circle = new Phaser.Geom.Circle(this.scene.player.x,this.scene.player.y,10);
         let mainBullet = new Bullet(this.scene,this.scene.player.x,this.scene.player.y,'player');
-        let mainBulletAngle = this.scene.physics.moveTo(mainBullet, pointer.x,pointer.y, 200);
+        let mainBulletAngle = this.scene.physics.moveTo(mainBullet, pointer.worldX,pointer.worldY, 200);
         mainBullet.scale = 0.3;
         setTimeout(() => mainBullet.destroy(), this.range);
 

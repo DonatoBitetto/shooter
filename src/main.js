@@ -12,7 +12,7 @@ export default new Phaser.Game(
         physics: {
             default : 'arcade',
             arcade: {
-                debug: false
+                debug: true
             }
         }
     }

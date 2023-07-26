@@ -39,17 +39,20 @@ export default class Game extends Phaser.Scene{
     }
 
     create(){
-        let map = this.make.tilemap({key: 'tilemap'});
-        let tileset = map.addTilesetImage('tiles','tiles');
-        map.createLayer('Background',tileset,0,0)
-        
+        let array = [];
+        let map = this.make.tilemap({data: array});
+        let tileset = map.addTilesetImage('tiles');
+        console.log(tileset);
+        console.log(map.putTileAt(0,0,0));
+
         this.player = new Player(this, 512, 384, 'player');
-        this.time.addEvent({
+
+        /* this.time.addEvent({
             callback: this.addEnemy,
             callbackScope: this,
             delay: 1000, // 1000 = 1 second
             loop: true
-        });
+        }); */
 
         this.scoreText = this.add.text(10,10, `Score: ${this.score}`, {color: '#ffffff',fontSize: 24});
         this.healthText = this.add.text(0, 0, `Health: ${this.player.health}`, {color: '#ffffff',fontSize: 24});

@@ -46,7 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
             this.setVelocityX(0);
         });
         scene.input.on('pointermove',(pointer)=>{
-            this.setRotation(Phaser.Math.Angle.Between(this.x,this.y,pointer.x,pointer.y));
+            this.setRotation(Phaser.Math.Angle.Between(this.x,this.y,pointer.worldX,pointer.worldY));
         });
         scene.input.on('pointerdown', (pointer) => {
             this.weapon.shoot(pointer);
