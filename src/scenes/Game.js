@@ -32,27 +32,27 @@ export default class Game extends Phaser.Scene{
 
     preload(){
         this.load.image('player','assets/survivor1_gun.png');
-        this.load.image('enemy','assets/enemy.png');
+        this.load.image('enemy','assets/zombie.png');
         this.load.image('bullet','assets/player.png');
         this.load.image('tiles','assets/tilesheet_complete.png');
         this.load.tilemapTiledJSON('tilemap','assets/map.json');
     }
 
     create(){
-        let array = [];
-        let map = this.make.tilemap({data: array});
-        let tileset = map.addTilesetImage('tiles');
-        console.log(tileset);
-        console.log(map.putTileAt(0,0,0));
+        this.map = this.make.tilemap({ key: 'tilemap'});
+        this.map.addTilesetImage('tiles');
+        this.map.createLayer('Background','tiles');
 
+        
         this.player = new Player(this, 512, 384, 'player');
+        this.player.setCollideWorldBounds(true)
 
-        /* this.time.addEvent({
+        this.time.addEvent({
             callback: this.addEnemy,
             callbackScope: this,
             delay: 1000, // 1000 = 1 second
             loop: true
-        }); */
+        });
 
         this.scoreText = this.add.text(10,10, `Score: ${this.score}`, {color: '#ffffff',fontSize: 24});
         this.healthText = this.add.text(0, 0, `Health: ${this.player.health}`, {color: '#ffffff',fontSize: 24});
@@ -85,7 +85,8 @@ export default class Game extends Phaser.Scene{
         });
         
         this.enemies.children.iterate(enemy=>{
-            this.physics.accelerateToObject(enemy,this.player);
+            let rotation = this.physics.accelerateToObject(enemy,this.player);
+            enemy.setRotation(rotation)
         });
 
         

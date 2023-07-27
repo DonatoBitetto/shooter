@@ -9,7 +9,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     constructor(scene, x, y, image){
         super(scene, x, y, image);
 
-        this.weapon = new Gun(scene,x,y);
+        this.weapon = new Shootgun(scene,x,y);
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
